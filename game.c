@@ -79,18 +79,7 @@ int main(void)
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
-        DrawTextureEx(background, (Vector2){0, scrollingBack}, 0.0f, 1.0f, WHITE);
-        DrawTextureEx(background, (Vector2){0, background.height + scrollingBack}, 0.0f, 1.0f, WHITE);
-
-        DrawTextureEx(leafshadow, (Vector2){0, scrollingBack}, 0.0f, 1.0f, WHITE);
-        DrawTextureEx(leafshadow, (Vector2){0, leaf.height + scrollingBack}, 0.0f, 1.0f, WHITE);
-
-        DrawTextureEx(leaf, (Vector2){0, scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
-        DrawTextureEx(leaf, (Vector2){0, leaf.height + scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
-
-        DrawTextureEx(textBox, (Vector2){53, 195}, 0.0f, 1.0f, WHITE);
-
-        DrawTextureRec(lonk, frameRec, position, WHITE);
+        
 
         strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
 
