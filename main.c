@@ -35,9 +35,9 @@ int main(void)
     int currentFrameY = 0;
 
     int framesCounter = 0;
-    int framesSpeed = 20; // Number of spritesheet frames shown by second
+    int framesSpeed = 30; // Number of spritesheet frames shown by second
 
-    SetTargetFPS(30); // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
