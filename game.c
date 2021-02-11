@@ -140,6 +140,7 @@ int main(void)
             DrawCircle(259, 152, 34, LIGHTGRAY);
             DrawCircle(259 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_X) * 20),
                        152 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_Y) * 20), 25, BLACK);
+        }
 
         EndDrawing();
         //----------------------------------------------------------------------------------
