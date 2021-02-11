@@ -19,15 +19,14 @@ int main(void)
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
     Texture2D background = LoadTexture("resources/backgroun.png");
     Texture2D lonk = LoadTexture("resources/lonk.png");
-
     Texture2D leaf = LoadTexture("resources/leaffull.png");
     Texture2D leafshadow = LoadTexture("resources/leaffullshadow.png");
-
     Texture2D textBox = LoadTexture("resources/textbox.png");
 
     Rectangle frameRec = {0.0f, 0.0f, (float)lonk.width / 5, (float)lonk.height / 2};
 
     Vector2 position = {screenWidth / 2 - lonk.width / 10, screenHeight / 2 - lonk.height / 4 - 50};
+    Vector2 optionsPosition = {screenWidth / 2 - textBox.width , textBox.height};
 
     Font fontTtf = LoadFontEx("resources/font.ttf", 32, 0, 250);
 
@@ -37,17 +36,45 @@ int main(void)
     int framesCounter = 0;
     int framesSpeed = 15; // Number of spritesheet frames shown by second
 
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
-    // Main game loop
     float scrollingBack = 0.0f;
     float scrollingBackLeaf = 0.0f;
 
+    int buttonPressed = -1;
+    int showingOptionAnimation = 0;
+    float maxOptionHeight = 20.0f;
+
+    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+    //--------------------------------------------------------------------------------------
+    
+    // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        localtime_r(&now, &tm_now);
+        
+        if (IsGamepadAvailable(GAMEPAD_PLAYER1))
+        {
+            for(int i = 0; i < 32; i++){
+                if (IsGamepadButtonPressed(GAMEPAD_PLAYER1, i)){
+                    buttonPressed = i;
+                    break;
+                }
+            }
+        }
+        
+        //Pressed Select
+        if(buttonPressed == 8){
+            showingOptionAnimation = 1;
+        }
 
+        if(showingOptionAnimation == 1){
+            if(optionsPosition.y >= maxOptionHeight){
+                showingOptionAnimation = 0;
+            }else{
+                optionsPosition.y -= 1.0f;
+            }
+        }
+         
+        //Animations
+        //----------------------------------------------------------------------------------
         scrollingBack -= .5f;
         scrollingBackLeaf -= .6f;
 
@@ -55,7 +82,6 @@ int main(void)
             scrollingBack = 0;
         if (scrollingBackLeaf <= -leaf.height)
             scrollingBackLeaf = 0;
-        //----------------------------------------------------------------------------------
         framesCounter++;
 
         if (framesCounter >= (60 / framesSpeed))
@@ -74,7 +100,7 @@ int main(void)
             frameRec.x = (float)currentFrame * (float)lonk.width / 5;
             frameRec.y = (float)currentFrameY * (float)lonk.height / 2;
         }
-        // Draw
+        // Background
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
@@ -88,28 +114,19 @@ int main(void)
         DrawTextureEx(leaf, (Vector2){0, scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
         DrawTextureEx(leaf, (Vector2){0, leaf.height + scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
 
-        DrawTextureEx(textBox, (Vector2){53, 195}, 0.0f, 1.0f, WHITE);
-
+        //Lonk
         DrawTextureRec(lonk, frameRec, position, WHITE);
 
+        // Clock
+        //----------------------------------------------------------------------------------
+        localtime_r(&now, &tm_now);
+        DrawTextureEx(textBox, (Vector2){53, 195}, 0.0f, 1.0f, WHITE);
         strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
-
         DrawTextEx(fontTtf, buff, (Vector2){90.58f, 230.4f}, fontTtf.baseSize, 2, WHITE);
 
-        if (IsGamepadAvailable(GAMEPAD_PLAYER1))
-        {
-            for(int i = 0; i < 32; i++){
-                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
-                    DrawText(TextFormat("DETECTED AXIS [%i]:", i), 10, 50, 10, MAROON);
-                }
-                    //printf("Button: %d\n", i);
-            }
-            
-            DrawCircle(259, 152, 39, BLACK);
-            DrawCircle(259, 152, 34, LIGHTGRAY);
-            DrawCircle(259 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_X) * 20),
-                       152 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_Y) * 20), 25, BLACK);
-        }
+        // Option Menu
+        //----------------------------------------------------------------------------------
+         DrawTextureEx(textBox, optionsPosition, 0.0f, 1.0f, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
