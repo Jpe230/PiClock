@@ -79,7 +79,38 @@ int main(void)
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
-        
+        DrawTextureEx(background, (Vector2){0, scrollingBack}, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(background, (Vector2){0, background.height + scrollingBack}, 0.0f, 1.0f, WHITE);
+
+        DrawTextureEx(leafshadow, (Vector2){0, scrollingBack}, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(leafshadow, (Vector2){0, leaf.height + scrollingBack}, 0.0f, 1.0f, WHITE);
+
+        DrawTextureEx(leaf, (Vector2){0, scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(leaf, (Vector2){0, leaf.height + scrollingBackLeaf}, 0.0f, 1.0f, WHITE);
+
+        DrawTextureEx(textBox, (Vector2){53, 195}, 0.0f, 1.0f, WHITE);
+
+        DrawTextureRec(lonk, frameRec, position, WHITE);
+
+        strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
+
+        DrawTextEx(fontTtf, buff, (Vector2){90.58f, 230.4f}, fontTtf.baseSize, 2, WHITE);
+
+        if (IsGamepadAvailable(GAMEPAD_PLAYER1))
+        {
+            for(int i = 0; i < 32; i++){
+                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
+                    DrawText(TextFormat("DETECTED AXIS [%i]:", GetGamepadAxisCount(GAMEPAD_PLAYER1)), 10, 50, 10, MAROON);
+                }
+                    //printf("Button: %d\n", i);
+            }
+            
+            DrawCircle(259, 152, 39, BLACK);
+            DrawCircle(259, 152, 34, LIGHTGRAY);
+            DrawCircle(259 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_X) * 20),
+                       152 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_Y) * 20), 25, BLACK);
+        }
+
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
