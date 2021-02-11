@@ -99,8 +99,10 @@ int main(void)
         if (IsGamepadAvailable(GAMEPAD_PLAYER1))
         {
             for(int i = 0; i < 32; i++){
-                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i))
-                    printf("Button: %d", i);
+                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
+                    DrawText(TextFormat("DETECTED Button [%i]:", i), 10, 50, 10, MAROON);
+                }
+                    //printf("Button: %d\n", i);
             }
             
             DrawCircle(259, 152, 39, BLACK);
