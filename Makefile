@@ -25,7 +25,7 @@
 
 # Define required raylib variables
 PROJECT_NAME       ?= PiClock
-RAYLIB_VERSION     ?= 1.0.0
+RAYLIB_VERSION     ?= 3.5.0
 RAYLIB_PATH        ?= ../raylib
 
 # Define default options
