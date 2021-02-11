@@ -26,7 +26,7 @@ int main(void)
     Rectangle frameRec = {0.0f, 0.0f, (float)lonk.width / 5, (float)lonk.height / 2};
 
     Vector2 position = {screenWidth / 2 - lonk.width / 10, screenHeight / 2 - lonk.height / 4 - 50};
-    Vector2 optionsPosition = {screenWidth / 2 - textBox.width , textBox.height};
+    Vector2 optionsPosition = {screenWidth / 2 - textBox.width , -textBox.height};
 
     Font fontTtf = LoadFontEx("resources/font.ttf", 32, 0, 250);
 
