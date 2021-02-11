@@ -98,44 +98,11 @@ int main(void)
 
         if (IsGamepadAvailable(GAMEPAD_PLAYER1))
         {
-            DrawText(TextFormat("GP1: %s", GetGamepadName(GAMEPAD_PLAYER1)), 10, 10, 10, BLACK);
-            // Draw buttons: xbox home
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_MIDDLE))
-                printf("Button Middle\n ");
-
-            // Draw buttons: basic
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_MIDDLE_RIGHT))
-                printf("Button Middle R\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_MIDDLE_LEFT))
-                printf("Button Middle L\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_RIGHT_FACE_LEFT))
-               printf("Button Middl FL\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_RIGHT_FACE_DOWN))
-                printf("Button Middle FD\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT))
-                printf("Button Middle FR\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_RIGHT_FACE_UP))
-                printf("Button Middle FU\n ");
-
-            // Draw buttons: d-pad
-            DrawRectangle(317, 202, 19, 71, BLACK);
-            DrawRectangle(293, 228, 69, 19, BLACK);
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_LEFT_FACE_UP))
-               printf("Button Left FU\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_LEFT_FACE_DOWN))
-                printf("Button Left FD\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_LEFT_FACE_LEFT))
-                printf("Button Left FL\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_LEFT_FACE_RIGHT))
-               printf("Button Left FR\n ");
-
-            // Draw buttons: left-right back
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_LEFT_TRIGGER_1))
-                printf("Button LT\n ");
-            if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_BUTTON_RIGHT_TRIGGER_1))
-                printf("Button RT\n ");
-
-            // Draw axis: left joystick
+            for(int i = 0; i < 32; i++){
+                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i))
+                    printf("Button: %d", i);
+            }
+            
             DrawCircle(259, 152, 39, BLACK);
             DrawCircle(259, 152, 34, LIGHTGRAY);
             DrawCircle(259 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_X) * 20),
