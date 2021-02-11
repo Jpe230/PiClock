@@ -35,7 +35,7 @@ int main(void)
     int currentFrameY = 0;
 
     int framesCounter = 0;
-    int framesSpeed = 30; // Number of spritesheet frames shown by second
+    int framesSpeed = 15; // Number of spritesheet frames shown by second
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -95,8 +95,6 @@ int main(void)
         strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now) ;
 
         DrawTextEx(fontTtf, buff, (Vector2){90.58f, 230.4f}, fontTtf.baseSize, 2, WHITE);
-
-
 
         EndDrawing();
         //----------------------------------------------------------------------------------
