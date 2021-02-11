@@ -100,7 +100,7 @@ int main(void)
         {
             for(int i = 0; i < 32; i++){
                 if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
-                    DrawText(TextFormat("DETECTED AXIS [%i]:", GetGamepadAxisCount(GAMEPAD_PLAYER1)), 10, 50, 10, MAROON);
+                    DrawText(TextFormat("DETECTED AXIS [%i]:", i), 10, 50, 10, MAROON);
                 }
                     //printf("Button: %d\n", i);
             }
