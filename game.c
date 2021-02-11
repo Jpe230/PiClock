@@ -80,26 +80,6 @@ int main(void)
 
         ClearBackground(RAYWHITE);
         
-
-        strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
-
-        DrawTextEx(fontTtf, buff, (Vector2){90.58f, 230.4f}, fontTtf.baseSize, 2, WHITE);
-
-        if (IsGamepadAvailable(GAMEPAD_PLAYER1))
-        {
-            for(int i = 0; i < 32; i++){
-                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
-                    DrawText(TextFormat("DETECTED Button [%i]:", i), 10, 50, 10, MAROON);
-                }
-                    //printf("Button: %d\n", i);
-            }
-            
-            DrawCircle(259, 152, 39, BLACK);
-            DrawCircle(259, 152, 34, LIGHTGRAY);
-            DrawCircle(259 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_X) * 20),
-                       152 + (GetGamepadAxisMovement(GAMEPAD_PLAYER1, GAMEPAD_AXIS_LEFT_Y) * 20), 25, BLACK);
-        }
-
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
