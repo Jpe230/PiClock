@@ -160,20 +160,18 @@ int main(void)
         DrawTextureEx(volumeDown, (Vector2){10, 85}, 0.0f, 1.0f, WHITE);
 
         mousePosition = GetMousePosition();
-        for(int i = 0; i < 3; i++){
-            printf("Button %d: %d\n", i, IsMouseButtonPressed(i));
-        }
-        if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+       
+        if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
             //debounceMouse = 1;
             //printf("help 1\n");
             system("/home/pi/test.sh");
         }
-        else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+        else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
             //debounceMouse = 1;
             //printf("help 2\n");
             system("/home/pi/volu.sh");
         }
-        else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+        else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
             //debounceMouse = 1;
             //printf("help 3\n");
             system("/home/pi/vold.sh");
