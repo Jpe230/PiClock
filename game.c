@@ -159,8 +159,10 @@ int main(void)
         DrawTextureEx(volumeUp,   (Vector2){10, 30}, 0.0f, 1.0f, WHITE);
         DrawTextureEx(volumeDown, (Vector2){10, 85}, 0.0f, 1.0f, WHITE);
 
-        mousePosition = GetTouchPosition(0);
-        printf("x: %f y: %f\n", GetTouchX(), GetTouchY());
+        mousePosition = GetMousePosition();
+        for(int i = 0; i < 3; i++){
+            printf("Button %d: %d\n", i, IsMouseButtonPressed(i));
+        }
         if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && debounceMouse == 0){
             //debounceMouse = 1;
             //printf("help 1\n");
