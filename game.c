@@ -2,6 +2,15 @@
 #include <stdio.h>
 #include <time.h>
 
+int FindPoint(int x1, int y1, int x2, 
+               int y2, int x, int y) 
+{ 
+    if (x > x1 && x < x2 && y > y1 && y < y2) 
+        return 1; 
+  
+    return 0; 
+} 
+
 int main(void)
 {
     // Initialization
@@ -22,11 +31,14 @@ int main(void)
     Texture2D leaf = LoadTexture("resources/leaffull.png");
     Texture2D leafshadow = LoadTexture("resources/leaffullshadow.png");
     Texture2D textBox = LoadTexture("resources/textbox.png");
+    Texture2D retroPie = LoadTexture("resources/retroPie.png");
+    Texture2D volumeUp = LoadTexture("resources/volUp.png");
+    Texture2D volumeDown = LoadTexture("resources/volDown.png");
 
     Rectangle frameRec = {0.0f, 0.0f, (float)lonk.width / 5, (float)lonk.height / 2};
 
     Vector2 position = {screenWidth / 2 - lonk.width / 10, screenHeight / 2 - lonk.height / 4 - 50};
-    Vector2 optionsPosition = {screenWidth / 2 - textBox.width , -textBox.height};
+    Vector2 optionsPosition = {screenWidth / 2 - textBox.width / 2 , -textBox.height};
 
     Font fontTtf = LoadFontEx("resources/font.ttf", 32, 0, 250);
 
@@ -45,6 +57,8 @@ int main(void)
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+
+    Vector2 mousePosition = { 0.0f, 0.0f };
     
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -53,7 +67,8 @@ int main(void)
         if (IsGamepadAvailable(GAMEPAD_PLAYER1))
         {
             for(int i = 0; i < 32; i++){
-                if (IsGamepadButtonPressed(GAMEPAD_PLAYER1, i)){
+                if (IsGamepadButtonDown(GAMEPAD_PLAYER1, i)){
+                    printf("button pressed: %d\n", i);
                     buttonPressed = i;
                     break;
                 }
@@ -61,15 +76,29 @@ int main(void)
         }
         
         //Pressed Select
-        if(buttonPressed == 8){
-            showingOptionAnimation = 1;
+        if(buttonPressed == 8 && showingOptionAnimation == 0){
+            buttonPressed = -1;
+            if(optionsPosition.y < maxOptionHeight)
+                showingOptionAnimation = 1;
+            if(optionsPosition.y >= maxOptionHeight)
+                showingOptionAnimation = 2;
+        }
+        
+        if(showingOptionAnimation == 1){
+            if(optionsPosition.y > maxOptionHeight){
+                showingOptionAnimation = 0;
+                optionsPosition.y = maxOptionHeight;
+            }else{
+                optionsPosition.y += 5.0f;
+            }
         }
 
-        if(showingOptionAnimation == 1){
-            if(optionsPosition.y >= maxOptionHeight){
+        if(showingOptionAnimation == 2){
+            if(optionsPosition.y < -textBox.height){
                 showingOptionAnimation = 0;
+                optionsPosition.y = -textBox.height;
             }else{
-                optionsPosition.y -= 1.0f;
+                optionsPosition.y -= 5.0f;
             }
         }
          
@@ -124,14 +153,28 @@ int main(void)
         strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
         DrawTextEx(fontTtf, buff, (Vector2){90.58f, 230.4f}, fontTtf.baseSize, 2, WHITE);
 
+        DrawTextureEx(retroPie,   (Vector2){400, 30}, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(volumeUp,   (Vector2){10, 30}, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(volumeDown, (Vector2){10, 85}, 0.0f, 1.0f, WHITE);
+
+        mousePosition = GetMousePosition();
+        if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y)){
+            system("/home/pi/test.sh");
+        }
+        if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y)){
+            system("/home/pi/volu.sh");
+        }
+        if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y)){
+            system("/home/pi/vold.sh");
+        }
+
         // Option Menu
         //----------------------------------------------------------------------------------
-         DrawTextureEx(textBox, optionsPosition, 0.0f, 1.0f, WHITE);
-
+        //DrawTextureEx(textBox, optionsPosition, 0.0f, 1.0f, WHITE);
+        
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
-
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadTexture(lonk); // Texture unloading
