@@ -162,16 +162,22 @@ int main(void)
         mousePosition = GetMousePosition();
         if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && debounceMouse == 0){
             debounceMouse = 1;
+            //printf("help 1\n");
             system("/home/pi/test.sh");
         }
         else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && debounceMouse == 0){
             debounceMouse = 1;
+            //printf("help 2\n");
             system("/home/pi/volu.sh");
         }
         else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && debounceMouse == 0){
             debounceMouse = 1;
+            //printf("help 3\n");
             system("/home/pi/vold.sh");
-        }else{
+        }else if(!FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && 
+                 !FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) &&
+                 !FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && 
+                 debounceMouse == 1){
             debounceMouse = 0;
         }
 
