@@ -60,6 +60,8 @@ int main(void)
 
     Vector2 mousePosition = { 0.0f, 0.0f };
     
+    int debounceMouse = 0;
+
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -158,20 +160,25 @@ int main(void)
         DrawTextureEx(volumeDown, (Vector2){10, 85}, 0.0f, 1.0f, WHITE);
 
         mousePosition = GetMousePosition();
-        if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y)){
+        if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+            debounceMouse = 1;
             system("/home/pi/test.sh");
         }
-        if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y)){
+        else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+            debounceMouse = 1;
             system("/home/pi/volu.sh");
         }
-        if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y)){
+        else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && debounceMouse == 0){
+            debounceMouse = 1;
             system("/home/pi/vold.sh");
+        }else{
+            debounceMouse = 0;
         }
 
         // Option Menu
         //----------------------------------------------------------------------------------
         //DrawTextureEx(textBox, optionsPosition, 0.0f, 1.0f, WHITE);
-        
+
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
