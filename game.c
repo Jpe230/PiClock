@@ -159,26 +159,21 @@ int main(void)
         DrawTextureEx(volumeUp,   (Vector2){10, 30}, 0.0f, 1.0f, WHITE);
         DrawTextureEx(volumeDown, (Vector2){10, 85}, 0.0f, 1.0f, WHITE);
 
-        mousePosition = GetMousePosition();
+        mousePosition = GetTouchPosition(0);
         if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && debounceMouse == 0){
-            debounceMouse = 1;
+            //debounceMouse = 1;
             //printf("help 1\n");
             system("/home/pi/test.sh");
         }
         else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && debounceMouse == 0){
-            debounceMouse = 1;
+            //debounceMouse = 1;
             //printf("help 2\n");
             system("/home/pi/volu.sh");
         }
         else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && debounceMouse == 0){
-            debounceMouse = 1;
+            //debounceMouse = 1;
             //printf("help 3\n");
             system("/home/pi/vold.sh");
-        }else if(!FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && 
-                 !FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) &&
-                 !FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && 
-                 debounceMouse == 1){
-            debounceMouse = 0;
         }
 
         // Option Menu
