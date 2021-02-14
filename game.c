@@ -150,6 +150,7 @@ int main(void)
 
         // Clock
         //----------------------------------------------------------------------------------
+        now = time(NULL);
         localtime_r(&now, &tm_now);
         DrawTextureEx(textBox, (Vector2){53, 195}, 0.0f, 1.0f, WHITE);
         strftime(buff, sizeof(buff), "Hey Link, the time is %H %M", &tm_now);
@@ -162,19 +163,13 @@ int main(void)
         mousePosition = GetMousePosition();
        
         if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
-            //debounceMouse = 1;
-            //printf("help 1\n");
-            system("/home/pi/test.sh");
+            system("./OpenEmulationStation.sh");
         }
         else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
-            //debounceMouse = 1;
-            //printf("help 2\n");
-            system("/home/pi/volu.sh");
+            system("./VolumeUp.sh");
         }
         else if(FindPoint(10, 85, 60, 135, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
-            //debounceMouse = 1;
-            //printf("help 3\n");
-            system("/home/pi/vold.sh");
+            system("./VolumeDown.sh");
         }
 
         // Option Menu
