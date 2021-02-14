@@ -163,7 +163,7 @@ int main(void)
         mousePosition = GetMousePosition();
        
         if(FindPoint(400, 30, 475, 357, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
-            system("./OpenEmulationStation.sh");
+            break;
         }
         else if(FindPoint(10, 30, 60, 80, mousePosition.x, mousePosition.y) && IsMouseButtonPressed(0)){
             system("./VolumeUp.sh");
@@ -182,9 +182,19 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadTexture(lonk); // Texture unloading
+    UnloadTexture(background); // Texture unloading
+    UnloadTexture(leaf); // Texture unloading
+    UnloadTexture(leafshadow); // Texture unloading
+    UnloadTexture(textBox); // Texture unloading
+    UnloadTexture(retroPie); // Texture unloading
+    UnloadTexture(volumeUp); // Texture unloading
+    UnloadTexture(volumeDown); // Texture unloading
 
     CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
+
+    //Open EmuStaion
+    system("./OpenEmulationStation.sh");
 
     return 0;
 }
